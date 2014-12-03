@@ -22,3 +22,12 @@ being interpreted as the argument to clobber.
     git ignore --clobber -- vim perl
 
 This requirement will go away with a new version of Opt::Imistic.
+
+DEPENDENCIES
+------------
+
+Opt::Imistic and Capture::Tiny are required
+
+    cpanm Opt::Imistic Capture::Tiny
+
+http://cpanmin.us, or RTFM on CPAN in general
