@@ -1,0 +1,27 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+use 5.014;
+use Capture::Tiny qw/capture/;
+use Opt::Imistic (1);
+use LWP::UserAgent;
+
+my @to_ignore = @ARGV;
+
+push @to_ignore, split /,/, $ENV{GITIGNORE_GROUPS} if $ENV{GITIGNORE_GROUPS};
+
+my ($gitdir) = capture {
+    system qw(git rev-parse --show-toplevel);
+};
+
+chdir $gitdir if $gitdir;
+
+open my $gitignore, $ARGV{clobber} ? ">" : ">>", ".gitignore";
+
+my $content = LWP::UserAgent
+    ->new
+    ->get("https://gitignore.io/api/" . join ",", @to_ignore)
+    ->content;
+
+$gitignore->print($content);
