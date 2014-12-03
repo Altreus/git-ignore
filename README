@@ -1,0 +1,24 @@
+git-ignore
+----------
+
+This script creates a .gitignore file in your current repository, or in your
+current directory if you're not currently in a repository.
+
+It uses http://www.gitignore.io to get the ignore files.
+
+If you put it in your `$PATH` then you can invoke it as `git ignore`.
+
+    git ignore vim perl
+
+You can also use the `GITIGNORE_GROUPS` environment variable to specify those
+groups that should always be included
+
+    GITIGNORE_GROUPS=vim,autotools git ignore perl python
+
+The selected items will be concatenated onto your current .gitignore; use
+`--clobber` to avoid this. Be sure to add `--` to prevent your first item from
+being interpreted as the argument to clobber.
+
+    git ignore --clobber -- vim perl
+
+This requirement will go away with a new version of Opt::Imistic.
